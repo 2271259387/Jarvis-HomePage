@@ -2,17 +2,19 @@
 <div class="wrap">
 <div class="search">
 <form id="form0" :action="action" target="_blank">
-<div align="center"> 
 <input name="" type=hidden >
-<input id="input0" type=text :name="name" size=30 class="input">
-</div>
+<input ref="input0" type=text :name="name" size=30 class="input" 
+placeholder="search" @focus="inputFocus()" autocomplete="off">
+<img class="bgbox" id="bgbox" src="../assets/BG_1.jpg">
+<div class="cover" ref="cover" @click="inputBlur()"></div>
 </form>
-  <div id="section">
-     <span v-for="(item, index) in list" :key="index"  class="sectionBox"
-     :class="{action:currentIndex == index}" @click="checkClick(index)">{{item.name}}</span> 
+  <div id="section" ref="section0">
+     <span v-for="(item, index) in list" :key="index"  class="sectionBox" 
+     :class="{action:currentIndex == index}" @click="checkClick(index)"><i class="iconfont" v-html="item.icon"></i></span> 
   </div>
 </div>
 </div>
+
 </template>
 
 <script>
@@ -22,9 +24,9 @@ export default {
   data() {
     return {
       list: [
-        {name:"百度",bianhao:"&#xe651;"},
-        {name:"必应",bianhao:"&#xe608;"},
-        {name:"谷歌",bianhao:"&#xe624;"}
+        {name:"百度",icon:"&#xe654;"},
+        {name:"必应",icon:"&#xe8c9;"},
+        {name:"谷歌",icon:"&#xe613;"}
       ],
       currentIndex: 0,
       action: "",
@@ -32,7 +34,22 @@ export default {
     }
   },
   mounted() {
-    
+		this.inputFocus()
+		this.action="https://www.baidu.com/s"
+		this.name="word"
+		this.$refs.input0.focus()
+		// this.$bus.$on("inputFocus", () =>{
+		// 	let e = this.$store.state.eventMotto
+		// 	e.style.opacity = "1"
+		// 	this.$refs.section0.style.display = "block";
+		// 	this.$refs.input0.classList.add("focus");
+		// 	this.$refs.cover.style.display = "block"
+		// 	setTimeout(() => {
+		// 		this.$refs.section0.style.opacity = "1";
+		// 		this.$refs.section0.style.top = innerWidth > 600 ? "270px": "155px";
+		// 	},
+		// 	100);
+		// })
   },
   methods: {
     checkClick(index){
@@ -51,8 +68,51 @@ export default {
 		this.name = "q";
 		break;
 	}
-    }
-  }
+		},
+	inputFocus() {
+	let e = this.$store.state.eventMotto
+	e.style.opacity = "1"
+	this.$refs.section0.style.display = "block";
+	this.$refs.input0.classList.add("focus");
+	this.$refs.cover.style.display = "block"
+	setTimeout(() => {
+		this.$refs.section0.style.opacity = "1";
+		this.$refs.section0.style.top = innerWidth > 600 ? "270px": "155px";
+	},
+	100);
+		 },
+	inputBlur() {
+	let e = this.$store.state.eventMotto
+	e.style.opacity = "0";
+	e.style.animation = "none";
+	this.$refs.input0.value = "";
+	this.$refs.section0.style.opacity = "0";
+	this.$refs.section0.style.top = "";
+	this.$refs.input0.classList.remove("focus");
+	this.$refs.cover.style.display = "none"
+	setTimeout(() => {
+		this.$refs.section0.style.display = "none";
+		this.$refs.section0.style.top = "";
+	},
+	250);
+	// if (innerWidth <= 600) {
+	// 	title.style.top = "100px";
+	// 	input0.style.top = "";
+	// }
+	// if (bgPreference == "Live") {
+	// 	if (reduceMotion === false) {
+	// 		liveBgBox.style.transform = "";
+	// 	}
+	// 	liveBgBox.style.filter = "";
+	// } else {
+	// 	if (reduceMotion === false) {
+	// 		bgbox.style.transform = "";
+	// 	}
+	// 	bgbox.style.filter = "";
+	// }
+	// hideKeyword();
+	}
+	}
 }
 </script>
 
@@ -105,13 +165,37 @@ export default {
 	color:transparent;
 	text-shadow:0 0 10px transparent
 }
-#section {
+.bgbox {
 	
+	
+	z-index:-3;
+	position:fixed;
+	left:0;
+	top:0;
+	width:100%;
+	height:100%;
+	object-fit:cover;
+	transition:opacity 1s,transform .25s,filter .25s
+}
+.cover {
+	display: none;
+	z-index:-1;
+	position:fixed;
+	left:0;
+	top:0;
+	width:100%;
+	height:100%;
+	background-image:radial-gradient(rgba(0,0,0,0) 0%,rgba(0,0,0,0.5) 100%),radial-gradient(rgba(0,0,0,0) 33%,rgba(0,0,0,0.3) 166%);
+	transition:all .25s
+}
+#section {
+	display: none;
+	opacity:0;
 	position:absolute;
-	top:260px;
+	top:220px;
 	left:50%;
 	margin-left:-130px;
-	width:300px;
+	width:260px;
 	text-align:center;
 	transition:all .25s
 }
@@ -130,7 +214,7 @@ export default {
 }
 
 .action {
-	background-color:rgba(14, 187, 240, 0.3);
+	background-color:rgba(255,255,255,.3);
 	cursor:default
 }
  

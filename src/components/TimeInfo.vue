@@ -1,16 +1,17 @@
 <template>
-  <div class="wrap">
-    <div class="time">
-    <h1  @click="Title_Click(event);" 
-    @mouseenter="titleHover()" @mouseout="titleHover2()">{{nowTime}}</h1>
-  </div>
+  <div class="time">
+    <div class="wrap">
+    <h1  @click="timeClick(event)" >{{nowTime}}</h1>
+  	</div>
+		<nav-page ref="navBox" />
   </div>
 </template>
 
 <script>
-
+import NavPage from './NavPage.vue'
 export default {
-  name: "TimeInfo",
+	name: "TimeInfo",
+	components: {NavPage},
   data() {
     return {
       nowTime: '',
@@ -34,16 +35,29 @@ export default {
 	}
 	this.nowTime = hours + ":" + minutes;
 	this.currentTime = year + "年" + month + "月" + day + "日 " + hours + ":" + minutes;
+	},
+	timeClick(event) {
+	let n = this.$refs.navBox.$refs.navbox
+	let m = this.$store.state.eventMotto
+	if (n.style.display != "block") {
+		input0.style.opacity = "0";
+		inputBlur();
+		m.style.opacity = "0";
+		m.style.animation = "none";
+		n.style.display = "block";
+		// btnUser.style.display = "block";
+		// btnSettings.style.display = "block";
+		// document.getElementById("tp-weather-widget").style.opacity = "0.5";
+		// document.getElementById("tp-weather-widget").style.pointerEvents = "auto";
+	} else {
+		Navbox_Click(event)
+	}
   }
   }
 }
 </script>
 
 <style scoped>
-.wrap {
-  width: 1100px;
-  margin: 0 auto;
-}
 .time {
 	position:absolute;
 	width:100px;

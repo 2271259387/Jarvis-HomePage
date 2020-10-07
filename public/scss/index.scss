@@ -1,5 +1,4 @@
-body{
-  body {
+body {
     max-width:100%;
     overflow:hidden;
     margin:0;
@@ -13,25 +12,23 @@ body{
     -webkit-user-select:none;
     user-select:none
   }
-  @font-face {
-    font-family: 'iconfont';
-    src: url('../../src/assets/icon/iconfont.eot');
-    src: url('../../src/assets/icon/iconfont.eot?#iefix') format('embedded-opentype'),
-        url('../../src/assets/icon/iconfont.woff2') format('woff2'),
-        url('../../src/assets/icon/iconfont.woff') format('woff'),
-        url('../../src/assets/icon/iconfont.ttf') format('truetype'),
-        url('../../src/assets/icon/iconfont.svg#iconfont') format('svg');
-  }
-  .iconfont {
-    font-family: "iconfont" !important;
-    font-size: 16px;
-    font-style: normal;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    color:rgba(255,255,255,.8);
-	  font-size:14px
-  }
-	@media screen and (max-width:600px) {
+@font-face {
+  font-family: 'iconfont';
+  src: url('../../src/assets/icon/iconfont.eot');
+  src: url('../../src/assets/icon/iconfont.eot?#iefix') format('embedded-opentype'),
+      url('../../src/assets/icon/iconfont.woff2') format('woff2'),
+      url('../../src/assets/icon/iconfont.woff') format('woff'),
+      url('../../src/assets/icon/iconfont.ttf') format('truetype'),
+      url('../../src/assets/icon/iconfont.svg#iconfont') format('svg');
+}
+ .iconfont {
+  font-family: "iconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+@media screen and (max-width:600px) {
   .bgbox,body {
     background-size:auto
   } 
@@ -55,8 +52,8 @@ body{
     bottom:15px;
     left:10%
   }
-  #searchOptBox {
-    top:110px
+  #section {
+    top:110px 
   }
   .keyword {
     top:200px;
@@ -84,7 +81,7 @@ body{
     padding-right:14px;
     font-size:.7em
   }
-  .quotebox {
+  .motto {
     top:550px;
     font-size:.7em;
     width:80%;
@@ -103,11 +100,11 @@ body{
     left:5%;
     width:90%
   }
-  #btnUser {
+  .btnUser {
     right:60px;
     top:10px
   }
-  #btnSettings {
+  .btnSettings {
     right:20px;
     top:10px
   }
@@ -349,4 +346,168 @@ body{
   .links1:active {
     color:#376400!important
   }
-}
+  .switch {
+    position:relative;
+    float:right;
+    display:block;
+    width:60px;
+    height:34px;
+    transform:scale(.6)
+  }
+  .switch input {
+    display:none
+  }
+  .slider {
+    position:absolute;
+    cursor:pointer;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+    border-radius:34px;
+    background-color:#ccc;
+    -webkit-transition:.25s;
+    transition:.25s
+  }
+  .slider:before {
+    position:absolute;
+    content:"";
+    height:26px;
+    width:26px;
+    left:4px;
+    bottom:4px;
+    border-radius:50%;
+    background-color:#fff;
+    -webkit-transition:.25s;
+    transition:.25s
+  }
+  input:active+.slider {
+    background-color:#bbb
+  }
+  input:checked+.slider {
+    background-color:#70bf00
+  }
+  input:checked:active+.slider {
+    background-color:#61a600
+  }
+  input:checked+.slider:before {
+    transform:translateX(26px)
+  }
+  .setOptCaption {
+    position:absolute;
+    top:8px;
+    font-size:small
+  }
+  .setOptComment {
+    position:absolute;
+    top:28px;
+    color:rgba(0,0,0,.5);
+    font-size:11px
+  }
+
+  //设置背景图
+  .bgPreviewBox {
+    position:relative;
+    display:inline-block;
+    margin-top:10px;
+    margin-right:6px;
+    left:0;
+    width:135px;
+    height:90px;
+    background-color:rgba(0,0,0,.05);
+    border-radius:6px;
+    overflow:hidden
+  }
+  .bgPreBoxMask,.bgPreBoxInner {
+    position:absolute;
+    width:100%;
+    height:100%;
+    background-color:transparent;
+    transition:all .25s;
+    background-position:center;
+    background-size:cover
+  }
+  .bgPreBoxInner:hover {
+    transform:scale(1.1)
+  }
+  .bgPreBoxInner:hover>.bgPreBoxMask {
+    background-color:rgba(0,0,0,.2)
+  }
+  .bgPreBoxInner:active>.bgPreBoxMask {
+    background-color:rgba(0,0,0,.4)
+  }
+  .bgPreBoxInner.selected>.bgPreBoxMask,.bgPreBoxInner.selected:hover>.bgPreBoxMask,.bgPreBoxInner.selected:active>.bgPreBoxMask {
+    background-color:rgba(0,0,0,.5)
+  }
+  .bgPreBoxInner.unset:hover>.bgPreBoxMask,.bgPreBoxInner.unset:active>.bgPreBoxMask {
+    background-color:transparent
+  }
+  .bgPreBoxInner.selected,.bgPreBoxInner.selected:hover,.bgPreBoxInner.selected:active,.bgPreBoxInner.unset:hover {
+    transform:scale(1)
+  }
+  #bgPreBoxIn1 {
+    background-image:url(https://cdn.jsdelivr.net/gh/MobiusBeta/assets/images/BG_A_Default_1.jpg)
+  }
+  #bgPreBoxIn2 {
+    background-image:url(https://cdn.jsdelivr.net/gh/MobiusBeta/assets/images/BG_A_Default_2.jpg)
+  }
+  #bgPreBoxIn3 {
+    background-image:url(https://cdn.jsdelivr.net/gh/MobiusBeta/assets/images/BG_A_Default_3.jpg)
+  }
+  #bgPreBoxInLive {
+    background-image:url(https://cdn.jsdelivr.net/gh/MobiusBeta/assets/images/BG_A_Live_1.jpg)
+  }
+  #btnBrowse {
+    position:unset
+  }
+  #contentFeedback p {
+    margin-top:0
+  }
+  .feedbackItem {
+    position:relative;
+    top:5px;
+    margin-top:15px
+  }
+  .feedbackItem div {
+    margin-top:7px;
+    color:rgba(0,0,0,.7)
+  }
+  .btnRectangle {
+    position:relative;
+    top:35px;
+    left:25%;
+    width:50%;
+    height:35px;
+    border:none;
+    outline:none;
+    border-radius:5px;
+    background-color:#70bf00;
+    color:#fff;
+    font-size:small;
+    transition:all .25s;
+    font-family:microsoft yahei light;
+    cursor:pointer
+  }
+  #imgWC {
+    left:50%
+  }
+  .btnRectangle2 {
+    display:inline-block;
+    position:relative;
+    top:40px;
+    padding:10px;
+    padding-left:30px;
+    padding-right:30px;
+    margin-right:10px;
+    border:solid 1px rgba(0,0,0,.1);
+    border-radius:5px;
+    transition:all .25s;
+    cursor:pointer
+  }
+  .btnRectangle2:hover {
+    background-color:rgba(0,0,0,.05)
+  }
+  .btnRectangle2:active {
+    background-color:rgba(0,0,0,.1)
+  }
+  

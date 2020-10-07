@@ -1,13 +1,14 @@
 <template>
-  <div class="time">
-    <div class="wrap">
-    <h1  @click="timeClick(event)" >{{nowTime}}</h1>
-  	</div>
-		<nav-page ref="navBox" />
+	<div>
+		<div class="time">
+    <h1  @click="timeClick($event.target)" >{{nowTime}}</h1>
   </div>
+	<nav-page ref="navBox" />
+	</div>
 </template>
 
 <script>
+import {inputMixin} from './Mixin/inputMixin.js' 
 import NavPage from './NavPage.vue'
 export default {
 	name: "TimeInfo",
@@ -15,9 +16,10 @@ export default {
   data() {
     return {
       nowTime: '',
-      currentTime: ''
+			currentTime: '',
     }
-  },
+	},
+mixins:[inputMixin],
   created(){
     this.Time()
     setInterval(this.Time, 1000);
@@ -36,21 +38,23 @@ export default {
 	this.nowTime = hours + ":" + minutes;
 	this.currentTime = year + "年" + month + "月" + day + "日 " + hours + ":" + minutes;
 	},
-	timeClick(event) {
+	timeClick(e) {
 	let n = this.$refs.navBox.$refs.navbox
 	let m = this.$store.state.eventMotto
+	let i = this.$store.state.eventInput0
+	let c0 = this.$store.state.eventCover
 	if (n.style.display != "block") {
-		input0.style.opacity = "0";
-		inputBlur();
+		i.style.opacity = "0";
+		this.inputBlur();
 		m.style.opacity = "0";
 		m.style.animation = "none";
+		m.style.display = "none";
 		n.style.display = "block";
-		// btnUser.style.display = "block";
-		// btnSettings.style.display = "block";
-		// document.getElementById("tp-weather-widget").style.opacity = "0.5";
-		// document.getElementById("tp-weather-widget").style.pointerEvents = "auto";
+		c0.style.display = "block"
+		this.$refs.navBox.$refs.btnUser.style.display = "block";
+		this.$refs.navBox.$refs.btnSettings.style.display = "block";
 	} else {
-		Navbox_Click(event)
+		this.$refs.navbox.navboxClick(e)
 	}
   }
   }

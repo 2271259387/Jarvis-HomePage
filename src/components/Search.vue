@@ -18,7 +18,7 @@ placeholder="search" @focus="inputFocus()" autocomplete="off">
 </template>
 
 <script>
-
+import {inputMixin} from './Mixin/inputMixin.js' 
 export default {
   name: "Search",
   data() {
@@ -32,24 +32,17 @@ export default {
       action: "",
       name: ""
     }
-  },
+	},
+mixins:[inputMixin],
   mounted() {
+		//将input0和section0 cover的Dom元素放在vuex
+		this.$store.state.eventInput0 = this.$refs.input0
+		this.$store.state.eventSection0 = this.$refs.section0
+		this.$store.state.eventCover = this.$refs.cover
 		this.inputFocus()
 		this.action="https://www.baidu.com/s"
 		this.name="word"
 		this.$refs.input0.focus()
-		// this.$bus.$on("inputFocus", () =>{
-		// 	let e = this.$store.state.eventMotto
-		// 	e.style.opacity = "1"
-		// 	this.$refs.section0.style.display = "block";
-		// 	this.$refs.input0.classList.add("focus");
-		// 	this.$refs.cover.style.display = "block"
-		// 	setTimeout(() => {
-		// 		this.$refs.section0.style.opacity = "1";
-		// 		this.$refs.section0.style.top = innerWidth > 600 ? "270px": "155px";
-		// 	},
-		// 	100);
-		// })
   },
   methods: {
     checkClick(index){
@@ -69,49 +62,18 @@ export default {
 		break;
 	}
 		},
-	inputFocus() {
-	let e = this.$store.state.eventMotto
-	e.style.opacity = "1"
-	this.$refs.section0.style.display = "block";
-	this.$refs.input0.classList.add("focus");
-	this.$refs.cover.style.display = "block"
-	setTimeout(() => {
-		this.$refs.section0.style.opacity = "1";
-		this.$refs.section0.style.top = innerWidth > 600 ? "270px": "155px";
-	},
-	100);
-		 },
-	inputBlur() {
-	let e = this.$store.state.eventMotto
-	e.style.opacity = "0";
-	e.style.animation = "none";
-	this.$refs.input0.value = "";
-	this.$refs.section0.style.opacity = "0";
-	this.$refs.section0.style.top = "";
-	this.$refs.input0.classList.remove("focus");
-	this.$refs.cover.style.display = "none"
-	setTimeout(() => {
-		this.$refs.section0.style.display = "none";
-		this.$refs.section0.style.top = "";
-	},
-	250);
-	// if (innerWidth <= 600) {
-	// 	title.style.top = "100px";
-	// 	input0.style.top = "";
+	// inputFocus() {
+	// let e = this.$store.state.eventMotto
+	// e.style.opacity = "1"
+	// this.$refs.section0.style.display = "block";
+	// this.$refs.input0.classList.add("focus");
+	// this.$refs.cover.style.display = "block"
+	// setTimeout(() => {
+	// 	this.$refs.section0.style.opacity = "1";
+	// 	this.$refs.section0.style.top = innerWidth > 600 ? "270px": "155px";
+	// },
+	// 100);
 	// }
-	// if (bgPreference == "Live") {
-	// 	if (reduceMotion === false) {
-	// 		liveBgBox.style.transform = "";
-	// 	}
-	// 	liveBgBox.style.filter = "";
-	// } else {
-	// 	if (reduceMotion === false) {
-	// 		bgbox.style.transform = "";
-	// 	}
-	// 	bgbox.style.filter = "";
-	// }
-	// hideKeyword();
-	}
 	}
 }
 </script>

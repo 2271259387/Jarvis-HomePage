@@ -1,12 +1,13 @@
 <template>
   <div class="motto" ref="motto" @click="inputBlur()">
-    <span class="bg"></span>
+    <span class="bg" ref="bg"></span>
     <p class="content">{{"「 "+content+"」"}}</p>
     <p class="author">{{"——"+author}}</p>
   </div>
 </template>
 
 <script>
+import {inputMixin} from './Mixin/inputMixin.js' 
 export default {
   name: "Motto",
   data() {
@@ -15,11 +16,12 @@ export default {
       author: ''
     }
   },
+mixins:[inputMixin],
   created() {
     this.getMotto()
   },
   mounted() {
-    this.$store.state.eventMotto = this.$refs.motto
+		this.$store.state.eventMotto = this.$refs.motto
   },
   methods: {
     getMotto() {
@@ -30,10 +32,6 @@ export default {
       }, (err) =>{
         console.log(err);
       });
-    },
-    inputBlur() {
-    this.$refs.motto.style.opacity = "0";
-    this.$refs.motto.style.animation = "none";
     }
   }
 }

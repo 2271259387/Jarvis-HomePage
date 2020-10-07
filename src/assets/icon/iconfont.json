@@ -6,6 +6,90 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "188616",
+      "name": "邮箱",
+      "font_class": "youxiang",
+      "unicode": "e662",
+      "unicode_decimal": 58978
+    },
+    {
+      "icon_id": "3897209",
+      "name": "太阳",
+      "font_class": "taiyang",
+      "unicode": "e65a",
+      "unicode_decimal": 58970
+    },
+    {
+      "icon_id": "3914949",
+      "name": "月亮",
+      "font_class": "yueliang",
+      "unicode": "e611",
+      "unicode_decimal": 58897
+    },
+    {
+      "icon_id": "8840496",
+      "name": "哔哩哔哩",
+      "font_class": "bilibili",
+      "unicode": "e619",
+      "unicode_decimal": 58905
+    },
+    {
+      "icon_id": "9232941",
+      "name": "云盘",
+      "font_class": "yunpan",
+      "unicode": "e66f",
+      "unicode_decimal": 58991
+    },
+    {
+      "icon_id": "9461480",
+      "name": "云盘",
+      "font_class": "weibiaoti-",
+      "unicode": "e604",
+      "unicode_decimal": 58884
+    },
+    {
+      "icon_id": "10074347",
+      "name": "音乐",
+      "font_class": "yinyue",
+      "unicode": "e600",
+      "unicode_decimal": 58880
+    },
+    {
+      "icon_id": "11915741",
+      "name": "壁纸",
+      "font_class": "bizhi",
+      "unicode": "e60b",
+      "unicode_decimal": 58891
+    },
+    {
+      "icon_id": "14350262",
+      "name": "翻译",
+      "font_class": "fanyi",
+      "unicode": "e6da",
+      "unicode_decimal": 59098
+    },
+    {
+      "icon_id": "16188455",
+      "name": "地图",
+      "font_class": "tubiao_ditu",
+      "unicode": "e68a",
+      "unicode_decimal": 59018
+    },
+    {
+      "icon_id": "17289480",
+      "name": "图 片",
+      "font_class": "tupian",
+      "unicode": "e6ce",
+      "unicode_decimal": 59086
+    },
+    {
+      "icon_id": "63031",
+      "name": "baidu",
+      "font_class": "baidu1",
+      "unicode": "e6bb",
+      "unicode_decimal": 59067
+    },
+    {
       "icon_id": "118286",
       "name": "百度",
       "font_class": "baidu",

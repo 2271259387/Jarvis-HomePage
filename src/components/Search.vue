@@ -62,18 +62,6 @@ mixins:[inputMixin],
 		break;
 	}
 		},
-	// inputFocus() {
-	// let e = this.$store.state.eventMotto
-	// e.style.opacity = "1"
-	// this.$refs.section0.style.display = "block";
-	// this.$refs.input0.classList.add("focus");
-	// this.$refs.cover.style.display = "block"
-	// setTimeout(() => {
-	// 	this.$refs.section0.style.opacity = "1";
-	// 	this.$refs.section0.style.top = innerWidth > 600 ? "270px": "155px";
-	// },
-	// 100);
-	// }
 	}
 }
 </script>

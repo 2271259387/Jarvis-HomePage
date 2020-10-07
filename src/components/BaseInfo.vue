@@ -11,7 +11,7 @@
       <div class="pTitle centerAligned">开始</div>
       <div class="pContent centerAligned">
       <p id="pVersion">version</p>
-      <p class="pAbout">这里是叮云科技的个人起始页(〃'▽'〃)<br>感谢<a href="https://cn.bing.com/" class="links1" title="必应" target="_blank">必应</a>提供的每日美图、<a href="https://hitokoto.cn/" class="links1" title="Hitokoto - 一言" target="_blank">Hitokoto - 一言</a>提供的奇怪格言<br>如果你喜欢这个主页，可以<a onclick="showPop(popDonate)" class="links1">捐助我</a>。Have a nice day!</p>
+      <p class="pAbout">这里是DwardChan的个人起始页<br>感谢<a href="https://cn.bing.com/" class="links1" title="必应" target="_blank">必应</a>提供的每日美图、<a href="https://hitokoto.cn/" class="links1" title="Hitokoto - 一言" target="_blank">Hitokoto - 一言</a>提供的奇怪格言<br>如果你喜欢这个主页，可以<a onclick="showPop(popDonate)" class="links1">捐助我</a>。Have a nice day!</p>
       <div id="changeLog">
         感谢毛若昕设计的Web模板
       </div>

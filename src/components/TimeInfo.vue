@@ -23,7 +23,10 @@ mixins:[inputMixin],
   created(){
     this.Time()
     setInterval(this.Time, 1000);
-  },
+	},
+	mounted() {
+		this.$store.state.eventTitle = this.$refs.title
+	},
   methods: {
 		Time() {
 			let date = new Date();
@@ -69,7 +72,7 @@ mixins:[inputMixin],
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .time {
 	position:absolute;
 	width:100px;
@@ -77,7 +80,10 @@ mixins:[inputMixin],
 	margin-left:-47.5px;
 	top:100px;
 	text-align:center;
-	transition:all .25s
+	transition:all .25s;
+	@media screen and (max-width:600px){
+		
+	}
 }
 h1 {
 	color:#fff;
@@ -89,10 +95,18 @@ h1 {
 	animation-name:delayedFadeIn;
 	animation-duration:2s;
 	animation-iteration-count:1;
-	animation-delay:0s
+	animation-delay:0s;
+	@media screen and (max-width:600px) {
+		font-size:27px
+	}
 }
 h1:hover::after {
-	transform:scale3d(1,1,1)
+	transform:scale3d(1,1,1);
+	@media screen and (max-width:600px) {
+		width:80%;
+		bottom:15px;
+		left:10%
+	}
 }
 h1:active {
 	color:rgba(255,255,255,.6)

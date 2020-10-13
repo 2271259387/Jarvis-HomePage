@@ -11,7 +11,7 @@ const state = {
     style: { display: "",opacity: ""}
   },  
   eventInput0: {
-    style: { display: "",opacity: ""},
+    style: { display: "",opacity: "", top: ""},
     classList: {add: Function},
     value: ""
   },
@@ -20,6 +20,9 @@ const state = {
   },
   eventCover: {
     style: { display: "",opacity: ""}
+  },
+  eventTitle: {
+    style: {top:""}
   }
 }
 export default new Vuex.Store({

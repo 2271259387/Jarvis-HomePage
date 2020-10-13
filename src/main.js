@@ -5,7 +5,7 @@ import './assets/icon/iconfont.css'
 import VueResource from 'vue-resource';
 Vue.use(VueResource);
 
-import "../public/scss/index.scss";
+import "./assets/styles/index.scss";
 
 Vue.config.productionTip = false
 Vue.prototype.$bus=new Vue()

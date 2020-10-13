@@ -1,18 +1,16 @@
 <template >
-<div class="wrap">
 <div class="search">
-<form id="form0" :action="action" target="_blank">
-<input name="" type=hidden >
-<input ref="input0" type=text :name="name" size=30 class="input" 
-placeholder="search" @focus="inputFocus()" autocomplete="off">
-<img class="bgbox" id="bgbox" src="../assets/BG_1.jpg">
-<div class="cover" ref="cover" @click="inputBlur()"></div>
-</form>
-  <div id="section" ref="section0">
-     <span v-for="(item, index) in list" :key="index"  class="sectionBox" 
-     :class="{action:currentIndex == index}" @click="checkClick(index)"><i class="iconfont" v-html="item.icon"></i></span> 
-  </div>
-</div>
+	<form id="form0" :action="action" target="_blank">
+	<input name="" type=hidden >
+	<input ref="input0" type=text :name="name" size=30 class="input" 
+	placeholder="search" @focus="inputFocus()" autocomplete="off">
+	<img class="bgbox" id="bgbox" src="../assets/BG_1.jpg">
+	<div class="cover" ref="cover" @click="inputBlur()"></div>
+	</form>
+	<div id="section" ref="section0">
+		<span v-for="(item, index) in list" :key="index"  class="sectionBox" 
+		:class="{action:currentIndex == index}" @click="checkClick(index)"><i class="iconfont" v-html="item.icon"></i></span> 
+	</div>
 </div>
 
 </template>
@@ -66,16 +64,12 @@ mixins:[inputMixin],
 }
 </script>
 
-<style scoped>
-.wrap {
-  width: 1100px;
-  margin: 0 auto;
-}
+<style scoped lang="scss">
 .input {
 	position:absolute;
 	top:200px;
-	left:calc(50% - 115px);
-	width:230px;
+	left:calc(50% - 100px); 
+	width:200px;
 	outline:none;
 	border:none;
 	padding:13px 15px;
@@ -88,7 +82,14 @@ mixins:[inputMixin],
 	box-shadow:rgba(0,0,0,.2) 0 0 10px;
 	-webkit-backdrop-filter:blur(10px);
 	backdrop-filter:blur(10px);
-	transition:background-color .25s,box-shadow .25s,left .25s,opacity .25s,top .25s,width .25s
+	transition:background-color .25s,box-shadow .25s,left .25s,opacity .25s,top .25s,width .25s;
+	@media screen and (max-width:600px) {
+		top:170px;
+		font-size:small;
+		padding:9px 15px;
+		width:180px;
+		left:calc(50% - 105px);
+	}
 }
 .input:hover {
 	background-color:rgba(255,255,255,.6);
@@ -100,7 +101,13 @@ mixins:[inputMixin],
 	background-color:rgba(255,255,255,.9);
 	box-shadow:rgba(0,0,0,.2) 0 0 10px;
 	left:calc(50% - 265px);
-	width:530px
+	width:530px;
+	@media screen and (max-width:600px) {
+		left:10%;
+		top:100px;
+		width:270px;
+		left: calc(50% - 150px);
+	}
 }
 .input::placeholder,textarea::placeholder {
 	color:#fff;
@@ -135,7 +142,7 @@ mixins:[inputMixin],
 	top:0;
 	width:100%;
 	height:100%;
-	background-image:radial-gradient(rgba(0,0,0,0) 0%,rgba(0,0,0,0.5) 100%),radial-gradient(rgba(0,0,0,0) 33%,rgba(0,0,0,0.3) 166%);
+	background-image: radial-gradient(rgba(0,0,0,0) 0%,rgba(0,0,0,0.5) 100%),radial-gradient(rgba(0,0,0,0) 33%,rgba(0,0,0,0.3) 166%);
 	transition:all .25s
 }
 #section {
@@ -147,7 +154,10 @@ mixins:[inputMixin],
 	margin-left:-130px;
 	width:260px;
 	text-align:center;
-	transition:all .25s
+	transition:all .25s;
+	@media screen and (max-width:600px) {
+		top:110px
+	}
 }
 .sectionBox {
 	position:relative;

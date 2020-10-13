@@ -67,7 +67,7 @@ mixins:[mixin],
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .btnSettings,.btnUser {
 	width: 20px;
 	height: 20px;
@@ -82,10 +82,18 @@ mixins:[mixin],
 	transition:all .25s
 }
 .btnSettings {
-	right:50px
+	right:50px;
+	@media screen and (max-width:600px) {
+		right:20px;
+      top:10px
+	}
 }
 .btnUser {
-	right:90px
+	right:90px;
+	@media screen and (max-width:600px) {
+		right:60px;
+      top:10px
+	}
 }
 .btnSettings:hover {
 	color:rgba(255,255,255,.65);
@@ -112,12 +120,20 @@ mixins:[mixin],
 #menuUser {
 	right:90px;
 	top:65px;
-	transform-origin:95% 10%
+	transform-origin:95% 10%;
+	@media screen and (max-width:600px) {
+		right:60px;
+      top:45px
+	}
 }
 #menuSettings {
 	right:50px;
 	top:65px;
-	transform-origin:95% 10%
+	transform-origin:95% 10%;
+	@media screen and (max-width:600px) {
+		right:20px;
+      top:45px
+	}
 }
 #menuCusNav {
 	width:140px

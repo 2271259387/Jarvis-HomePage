@@ -37,7 +37,7 @@ mixins:[inputMixin],
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .motto {
 	position:absolute;
 	top:100%;
@@ -50,7 +50,21 @@ mixins:[inputMixin],
 	animation-name:delayedFadeIn;
 	animation-duration:3s;
 	animation-iteration-count:1;
-	animation-delay:0s
+	animation-delay:0s;
+	@media screen and (max-width:600px) {
+		top:550px;
+		font-size:.7em;
+		width:80%;
+		left:50%;
+		margin-left:-40%
+	}
+	@media screen and (min-width:600px) and (max-width:900px) {
+		font-size:small;
+	margin-top:-15%
+	}
+	@media screen and (max-height:550px) {
+		display:none
+	}
 }
 .bg {
 	z-index:-1;

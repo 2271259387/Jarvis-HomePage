@@ -58,17 +58,17 @@
 						</div>
 				</div>
 				<div class="navboxes" id="navbox2" ref="navbox2">
-				<span class="shouldNotFade" id="noteListWrap">
-				<span class="shouldNotFade" id="noteList">
+				<span class="shouldNotFade" id="noteListWrap" ref="noteListWrap">
+				<span class="shouldNotFade" id="noteList" ref="noteList">
 				<div class="noteItem shouldNotFade" @click="newNote()">
-				<i class="iconfont shouldNotFade" id="iconAdd">&#xe620;</i><span class="noteTitle shouldNotFade" id="noteTitle0">新便笺</span>
+				<i class="iconfont shouldNotFade" id="iconAdd">&#xe7e8;</i><span class="noteTitle shouldNotFade" id="noteTitle0">新便笺</span>
 				</div>
 				</span>
 				</span>
-				<textarea class="shouldNotFade" id="textNote" placeholder="在此键入以创建新的便笺" oninput="saveNote()"></textarea>
-				<div class="shouldNotFade" id="noteToolBar">
-				<span class="toolBarBtns" id="btnDelNote" title="删除便笺" onclick="delNote()"><i class="iconfont shouldNotFade">&#xe614;</i></span>
-				<span class="toolBarBtns" id="btnPinNote" title="固定便笺到主屏幕" onclick="pinNote()"><i class="iconfont shouldNotFade" id="iconPin">&#xe849;</i></span>
+				<textarea class="shouldNotFade" id="textNote" ref="textNote" placeholder="在此键入以创建新的便笺" @input="saveNote()"></textarea>
+				<div class="shouldNotFade" id="noteToolBar" ref="noteToolBar">
+				<span class="toolBarBtns" id="btnDelNote" title="删除便笺" @click="delNote()"><i class="iconfont shouldNotFade">&#xe614;</i></span>
+				<span class="toolBarBtns" id="btnPinNote" title="固定便笺到主屏幕" @click="pinNote()"><i class="iconfont shouldNotFade" id="iconPin">&#xe849;</i></span>
 				</div>
 				</div>
       </div>
@@ -83,10 +83,21 @@
 <script>
 
 export default {
-  name: "NavBox",
+	name: "NavBox",
+	data() {
+		return {
+			currentNoteIsNew: true,
+			currentNoteIsNew: "",
+			currentEditingNote: "",
+			currentTime: ""
+		}
+	},
   components: {
 
-  },
+	},
+	mounted() {
+		this.currentTime = this.$parent.$parent.currentTime
+	},
   methods: {
     navboxClick(e) {
 				let i = this.$store.state.eventInput0
@@ -139,8 +150,118 @@ export default {
 				this.closeFrmCusNav();
 				currentEditingNav = "";
 			}
-    },
-    nbSwitch1_Click() {
+		},
+		 newNote() {
+			this.$refs.noteToolBar.style.display = "none";
+			if (document.getElementById("noteItem" + this.currentEditingNote) != undefined) {
+				document.getElementById("noteItem" + this.currentEditingNote).classList.remove("current");
+			}
+			this.currentNotes = Number(this.currentNotes) + 1;
+			this.currentEditingNote = Number(this.$refs.noteList.lastElementChild.id.replace("noteItem", "")) + 1;
+			this.currentNoteIsNew = true;
+			this.$refs.textNote.value = "";
+			this.$refs.textNote.focus();
+			this.currentNotes = Number(this.currentNotes) - 1;
+			this.currentEditingNote = Number(this.$refs.noteList.lastElementChild.id.replace("noteItem", "")) - 1;
+		},
+		 openNote(obj) {
+			if (document.getElementById("noteItem" + this.currentEditingNote) != undefined) {
+				document.getElementById("noteItem" + this.currentEditingNote).classList.remove("current");
+			}
+			this.currentNoteIsNew = false;
+			this.currentEditingNote = obj.id.replace("noteItem", "");
+			this.$refs.textNote.value = localStorage.getItem("note" + this.currentEditingNote);
+			this.$refs.noteToolBar.style.display = "block";
+			document.getElementById("noteItem" + this.currentEditingNote).classList.add("current");
+		},
+		 noteChanged() {
+			if (this.$refs.textNote.value != "" && this.$refs.noteListWrap.style.left != "0px") {
+				this.$refs.textNote.style.left = "200px";
+				this.$refs.textNote.style.width = "460px";
+				this.$refs.noteListWrap.style.left = "0px";
+				this.$refs.noteToolBar.style.display = "block";
+				this.newNote()
+			}
+			if (this.$refs.textNote.value != "" && this.currentNoteIsNew == true) {
+				this.currentNotes = Number(this.currentNotes) + 1;
+				this.currentEditingNote = Number(this.$refs.noteList.lastElementChild.id.replace("noteItem", "")) + 1;
+				var newNoteDiv = document.createElement("div");
+				newNoteDiv.className = "noteItem";	
+				newNoteDiv.classList.add("shouldNotFade");
+				newNoteDiv.classList.add("current");
+				newNoteDiv.id = "noteItem" + this.currentEditingNote;
+				newNoteDiv.onclick = function() {
+					openNote(this)
+				}
+				var newNoteSpan1 = document.createElement("span");
+				newNoteSpan1.className = "noteTitle";
+				newNoteSpan1.classList.add("shouldNotFade");
+				newNoteSpan1.id = "noteTitle" + this.currentEditingNote;
+				var newbr = document.createElement("br")
+				var newNoteSpan2 = document.createElement("span");
+				newNoteSpan2.className = "noteTime";
+				newNoteSpan2.classList.add("shouldNotFade");
+				newNoteSpan2.id = "noteTime" + this.currentEditingNote;
+				newNoteDiv.appendChild(newNoteSpan1);
+				newNoteDiv.appendChild(newbr);
+				newNoteDiv.appendChild(newNoteSpan2);
+				this.$refs.noteList.appendChild(newNoteDiv);
+				this.$refs.noteList.scrollTop = this.$refs.noteList.clientHeight;
+				localStorage.setItem("currentNotes", this.currentNotes);
+				localStorage.setItem("maximumNoteNumber", this.currentEditingNote);
+				this.$refs.noteToolBar.style.display = "block";
+				this.currentNoteIsNew = false;
+			}
+			if (this.$refs.textNote.value == "" && this.currentNotes == "1" && this.$refs.noteListWrap.style.left == "0px") {
+				this.$refs.textNote.style.left = "0px";
+				this.$refs.textNote.style.width = "660px";
+				this.$refs.noteListWrap.style.left = "-200px";
+				this.$refs.noteToolBar.style.display = "none";
+			}
+			if (this.$refs.textNote.value == "") {
+				this.$refs.noteList.removeChild(document.getElementById("noteItem" + this.currentEditingNote));
+				this.currentNotes = Number(this.currentNotes) - 1;
+				this.currentNoteIsNew = true;
+				localStorage.setItem("currentNotes", this.currentNotes);
+				localStorage.setItem("maximumNoteNumber", Number(this.$refs.noteList.lastElementChild.id.replace("noteItem", "")));
+				this.$refs.noteToolBar.style.display = "none";
+			}
+			if (document.getElementById("noteTitle" + this.currentEditingNote) != undefined) {
+				document.getElementById("noteTitle" + this.currentEditingNote).innerText = this.$refs.textNote.value;
+				document.getElementById("noteTime" + this.currentEditingNote).innerText = this.currentTime;
+			}
+			// if (this.currentEditingNote == pinnedNoteNum) {
+			// 	pinnedNoteContent.innerText = textNote.value;
+			// 	pinnedNoteTime.innerText = currentTime;
+			// }
+			// if (this.currentEditingNote == pinnedNoteNum && textNote.value == "") {
+			// 	unpinNote();
+			// }
+		},
+		 saveNote() {
+			this.noteChanged();
+			if (this.$refs.textNote.value != "") {
+				localStorage.setItem("note" + this.currentEditingNote, this.$refs.textNote.value);
+				localStorage.setItem("noteTime" + this.currentEditingNote, this.currentTime);
+			} else {
+				localStorage.removeItem("note" + this.currentEditingNote);
+				localStorage.removeItem("noteTime" + this.currentEditingNote);
+			}
+		},
+			delNote() {
+				if (confirm("删除这条便笺？")) {
+					this.$refs.textNote.value = "";
+					this.saveNote();
+				}
+			},
+			// pinNote() {
+			// 	pinnedNoteContent.innerText = textNote.value;
+			// 	pinnedNoteTime.innerText = document.getElementById("noteTime" + currentEditingNote).innerText;
+			// 	pinnedNoteNum = currentEditingNote;
+			// 	localStorage.setItem("pinnedNoteNum", currentEditingNote);
+			// 	showPinnedNote();
+			// },
+    	nbSwitch1_Click() {
 			if (this.$refs.navbox1.style.left != "0px") {
 				this.$refs.nbSwitch2_0.classList.remove("current");
 				this.$refs.nbSwitch1_0.classList.add("current");
@@ -176,7 +297,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .navbox {
 	animation:fadeIn .25s linear;
 	position:fixed;
@@ -194,7 +315,13 @@ export default {
 	left:calc(50% - 330px);
 	width:690px;
 	height:250px;
-	overflow:hidden
+	overflow:hidden;
+	@media screen and (max-width:600px) {
+		width:100%;
+		left:0;
+		margin-left:0;
+		margin-top:170px
+	}
 }
 .navboxes {
 	position:absolute;
@@ -224,7 +351,11 @@ export default {
 }
 .navboxSwitch {
 	z-index:50;
-	top:500px
+	top:500px;
+	@media screen and (max-width:1370px) {
+		top:auto;
+	bottom:100px
+	}
 }
 .navboxTmp {
 	bottom:200px
@@ -234,7 +365,7 @@ export default {
 	position:absolute;
 	left:-200px;
 	width:190px;
-	height:200px;
+	height: 237.32px;
 	overflow:hidden;
 	border-radius:15px;
 	transition:all .25s;
@@ -244,7 +375,7 @@ export default {
 #noteList {
 	position:absolute;
 	width:222px;
-	height:200px;
+	height: 237.32px;
 	background-color:transparent;
 	overflow-x:hidden
 }
@@ -309,7 +440,11 @@ export default {
     border-image: initial;
     outline: none;
     border-radius: 15px;
-    transition: all 0.25s ease 0s;
+		transition: all 0.25s ease 0s;
+		@media screen and (max-width:600px) {
+			left:5%;
+      width:90%
+		}
 }
 ::-webkit-scrollbar {
 	width:5px
@@ -401,8 +536,6 @@ td {
 	word-break:keep-all
 }
 
-
-
 .navboxCustom {
 	  height: 100%;
     margin: 0 auto;
@@ -411,7 +544,22 @@ td {
     color: #fff;
     font-size: 0;
     overflow-y: auto;
-    transition: all .25s;
+		transition: all .25s;
+		@media screen and (max-width:600px) {
+			left:5%;
+      margin-left:0;
+      width:90%
+		}
+		@media screen and (min-width:600px) and (max-width:900px) {
+			margin-left:-250px;
+			width:500px
+		}
+		@media screen and (max-height:600px) {
+			bottom:110px
+		}
+		@media screen and (max-height:550px) {
+			display:none
+		}
 }
 .customNav {
 	position: relative;
@@ -425,7 +573,13 @@ td {
     text-align: center;
     background-color: #cdcdcd;
     cursor: pointer;
-    transition: background-color .35s;
+		transition: background-color .35s;
+		@media screen and (max-width:600px){
+			width:20%
+		}
+		@media screen and (min-width:600px) and (max-width:900px) {
+			width:20%
+		}
 }
 .customNav:hover {
 	background-color:rgba(255,255,255,.5)

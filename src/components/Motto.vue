@@ -30,7 +30,7 @@ mixins:[inputMixin],
         this.content = res.body.hitokoto
         this.author = res.body.from
       }, (err) =>{
-        console.log(err);
+				console.log(err);
       });
     }
   }

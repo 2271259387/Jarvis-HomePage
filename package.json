@@ -10,6 +10,7 @@
     "better-scroll": "^2.0.4",
     "core-js": "^3.6.5",
     "slm": "^2.0.0",
+    "three": "^0.121.1",
     "vue": "^2.6.11",
     "vue-resource": "^1.5.1",
     "vue-router": "^3.4.5",

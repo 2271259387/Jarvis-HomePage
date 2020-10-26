@@ -6,7 +6,7 @@
  
 <script>
 import * as Three from 'three'
- 
+import { SVGRenderer } from 'three/examples/jsm/renderers/SVGRenderer'
 export default {
   name: 'Jarvis',
   data() {
@@ -14,34 +14,88 @@ export default {
       camera: null,
       scene: null,
       renderer: null,
-      mesh: null
     }
   },
   methods: {
-    init: function() {
+    init() {
         let container = document.getElementById('container');
  
-        this.camera = new Three.PerspectiveCamera(70, container.clientWidth/container.clientHeight, 0.01, 10);
-        this.camera.position.z = 1;
+        this.camera = new Three.PerspectiveCamera(33, container.clientWidth / container.clientHeight, 0.1, 100);
+        this.camera.position.z = 10;
  
         this.scene = new Three.Scene();
- 
-        let geometry = new Three.BoxGeometry(0.2, 0.2, 0.2);
-        let material = new Three.MeshNormalMaterial();
- 
-        this.mesh = new Three.Mesh(geometry, material);
-        this.scene.add(this.mesh);
- 
-        this.renderer = new Three.WebGLRenderer({antialias: true});
+        this.scene.background = new Three.Color( 0, 0, 0 );
+
+        this.renderer = new SVGRenderer();
         this.renderer.setSize(container.clientWidth, container.clientHeight);
         container.appendChild(this.renderer.domElement);
  
+        var vertices = [];
+				var divisions = 50;
+
+				for ( var i = 0; i <= divisions; i ++ ) {
+
+					var v = ( i / divisions ) * ( Math.PI * 2 );
+
+					var x = Math.sin( v );
+					var z = Math.cos( v );
+
+					vertices.push( x, 0, z );
+
+				}
+
+				var geometry = new Three.BufferGeometry();
+				geometry.setAttribute( 'position', new Three.Float32BufferAttribute( vertices, 3 ) );
+
+				//
+
+				for ( var i = 1; i <= 3; i ++ ) {
+
+					var material = new Three.LineBasicMaterial( {
+						color: Math.random() * 0xffffff,
+						linewidth: 10
+					} );
+					var line = new Three.Line( geometry, material );
+					line.scale.setScalar( i / 3 );
+					this.scene.add( line );
+
+				}
+
+				var material = new Three.LineDashedMaterial( {
+					color: 'blue',
+					linewidth: 1,
+					dashSize: 10,
+					gapSize: 10
+				} );
+				var line = new Three.Line( geometry, material );
+				line.scale.setScalar( 2 );
+				this.scene.add( line );
+
+				//
+
+				window.addEventListener( 'resize', this.onWindowResize(), false );
     },
-    animate: function() {
-        requestAnimationFrame(this.animate);
-        this.mesh.rotation.x += 0.01;   
-        this.mesh.rotation.y += 0.02;
-        this.renderer.render(this.scene, this.camera);
+    onWindowResize() {
+        let container = document.getElementById('container');
+				this.camera.aspect = container.clientWidth / container.clientHeight;
+				this.camera.updateProjectionMatrix();
+
+				this.renderer.setSize( container.clientWidth, container.clientHeight );
+
+			},
+    animate() {
+        let count = 0;
+        let time = performance.now() / 1000;
+        this.scene.traverse( function ( child ) {
+
+					child.rotation.x = count + ( time / 3 );
+					child.rotation.z = count + ( time / 4 );
+
+					count ++;
+
+        } );
+        this.renderer.render( this.scene, this.camera );
+				requestAnimationFrame( this.animate );
     }
   },
   mounted() {

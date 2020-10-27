@@ -49,26 +49,33 @@ export default {
 
 				//
 
-				for ( var i = 1; i <= 3; i ++ ) {
+				for ( var i = 1; i <= 2; i ++ ) {
 
 					var material = new Three.LineBasicMaterial( {
-						color: Math.random() * 0xffffff,
-						linewidth: 10
+						color: 0x3cd1e3,
+						linewidth: 4
 					} );
 					var line = new Three.Line( geometry, material );
-					line.scale.setScalar( i / 3 );
+					line.scale.setScalar( i / 2 );
 					this.scene.add( line );
 
-				}
+        }
+        var material = new Three.LineBasicMaterial( {
+						color: 0x087fc9,
+						linewidth: 12
+					} );
+					var line = new Three.Line( geometry, material );
+					line.scale.setScalar( 5/8 );
+					this.scene.add( line );
 
 				var material = new Three.LineDashedMaterial( {
-					color: 'blue',
-					linewidth: 1,
+					color: 0x3cd1e3,
+					linewidth: 2,
 					dashSize: 10,
 					gapSize: 10
 				} );
 				var line = new Three.Line( geometry, material );
-				line.scale.setScalar( 2 );
+				line.scale.setScalar( 6/7 );
 				this.scene.add( line );
 
 				//
@@ -88,8 +95,8 @@ export default {
         let time = performance.now() / 1000;
         this.scene.traverse( function ( child ) {
 
-					child.rotation.x = count + ( time / 3 );
-					child.rotation.z = count + ( time / 4 );
+					child.rotation.x = count + ( time / 5 );
+					child.rotation.z = count + ( time / 5 );
 
 					count ++;
 
@@ -106,6 +113,6 @@ export default {
 </script>
 <style scoped>
   #container {
-    height: 400px;
+    height: 900px;
   }
 </style>

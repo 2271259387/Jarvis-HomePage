@@ -1,9 +1,8 @@
 # homepage
-用vue实现的青柠起始页。  
-将复用的css都集中放在了scss文件中。  
-将复用的方法都用mixins引用。  
-该项目大量操作Dom元素，用了vuex管理Dom元素状态便于不同组件之间调用。  
-
+用vue实现的JARVIS浏览器主页。    
+使用three.js完成对jarvis主体和文字的渲染。  
+在vue中使用three.js文字渲染模块的字体文件时需使用ES6的import导入。  
+网站的jarvis还不是我理想中jarvis的样子，因为three.js局限性太高暂时做成这样。  
 ## Project setup
 ```
 npm install
@@ -18,6 +17,3 @@ npm run serve
 ```
 npm run build
 ```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
